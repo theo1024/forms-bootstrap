@@ -2,6 +2,7 @@
 
 namespace Contributte\FormsBootstrap\Traits;
 
+use Closure;
 use Contributte\FormsBootstrap\BootstrapContainer;
 use Contributte\FormsBootstrap\BootstrapForm;
 use Contributte\FormsBootstrap\Inputs\ButtonInput;
@@ -35,6 +36,7 @@ use Nette\Forms\Controls\TextInput as NetteTextInput;
 use Nette\Forms\Controls\UploadControl;
 use Nette\Forms\Form;
 use Nette\Utils\Html;
+use Stringable;
 
 /**
  * Trait BootstrapContainerTrait.
@@ -293,14 +295,18 @@ trait BootstrapContainerTrait
 	}
 
 	/**
-	 * @param string|Html|null $caption
+	 * @param string|Html|Stringable|null $caption
 	 * @return SubmitButtonInput
 	 */
-	public function addSubmit(string $name, $caption = null): SubmitButton
+	public function addSubmit(string $name, Stringable|string|null $caption = null, ?Closure $onSubmit = null): SubmitButton
 	{
 		$comp = new SubmitButtonInput($caption);
 		$comp->setBtnClass('btn-primary');
 		$this->addComponent($comp, $name);
+
+		if ($onSubmit !== null) {
+			$comp->onClick[] = $onSubmit;
+		}
 
 		return $comp;
 	}
