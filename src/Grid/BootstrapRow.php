@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+e?php declare(strict_types = 1);
 
 namespace Contributte\FormsBootstrap\Grid;
 
@@ -210,7 +210,7 @@ class BootstrapRow implements IComponent, Control
 	public function render(): Html
 	{
 		/** @var BootstrapRenderer $renderer */
-		$renderer = $this->container->form->renderer;
+		$renderer = $this->container->form->getRenderer();
 
 		$element = $renderer->configElem(RendererConfig::GRID_ROW, $this->elementPrototype);
 		foreach ($this->cells as $cell) {
